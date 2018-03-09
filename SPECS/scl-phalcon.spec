@@ -35,7 +35,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.2.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -81,8 +81,11 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %{php_extdir}/phalcon.so
 %dir %{_scl_root}/usr/include/php/ext/phalcon
 %{_scl_root}/usr/include/php/ext/phalcon/php_phalcon.h
-%config(noreplace) %{_scl_root}/etc/php.d/phalcon.ini
+%config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Tue Feb 27 2018 Daniel Muey <dan@cpanel.net> - 3.2.2-2
+- EA-7253: Correct permissions on the Phalcon INI
+
 * Tue Aug 15 2017 Dan Muey <dan@cpanel.net> - 3.2.2-1
 - Initial creation
