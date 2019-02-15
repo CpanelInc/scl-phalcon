@@ -35,7 +35,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.4.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 1
+%define release_prefix 2
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -84,6 +84,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Thu Feb 14 2019 Cory McIntire <cory@cpanel.net> - 3.4.2-2
+- EA-8226: Add macro for scl-php73
+
 * Wed Dec 12 2018 Cory McIntire <cory@cpanel.net> - 3.4.2-1
 - EA-8067: Update to version 3.4.2
 - PR originally requested by https://github.com/afbora
