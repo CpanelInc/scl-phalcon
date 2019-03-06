@@ -35,7 +35,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.4.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 2
+%define release_prefix 3
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -51,7 +51,14 @@ BuildRequires: scl-utils-build
 BuildRequires: %{?scl_prefix}scldevel
 BuildRequires: %{?scl_prefix}build
 BuildRequires: %{?scl_prefix}php-devel
-BuildRequires: autoconf, automake, libtool
+BuildRequires: automake, libtool
+
+%if 0%{rhel} > 6
+BuildRequires: autoconf
+%else
+BuildRequires: autotools-latest-autoconf
+%endif
+
 Requires:      %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:      %{?scl_prefix}php(api) = %{php_core_api}
 Requires: %{scl} %{?scl_prefix}php-cli
@@ -68,7 +75,12 @@ Phalcon is an open source full stack framework for PHP, written as a C-extension
 echo $RPM_BUILD_ROOT/%{php_extdir}
 mkdir -p $RPM_BUILD_ROOT/%{php_extdir}
 cd build
+
+%if 0%{rhel} < 7
+INSTALL_ROOT=%{buildroot} scl enable autotools-latest './install --phpize %{_scl_root}/usr/bin/phpize --php-config %{_scl_root}/usr/bin/php-config'
+%else
 INSTALL_ROOT=%{buildroot} ./install --phpize %{_scl_root}/usr/bin/phpize --php-config %{_scl_root}/usr/bin/php-config
+%endif
 
 mkdir -p $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
@@ -84,6 +96,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Wed Mar 06 2019 Cory McIntire <cory@cpanel.net> - 3.4.2-3
+- EA-8226: Add autotools-latest-autoconf build requirements to ensure building on C6
+
 * Thu Feb 14 2019 Cory McIntire <cory@cpanel.net> - 3.4.2-2
 - EA-8226: Add macro for scl-php73
 
