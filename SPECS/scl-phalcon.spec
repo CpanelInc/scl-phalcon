@@ -35,7 +35,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.4.2
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -46,7 +46,7 @@ URL: https://phalconphp.com/
 #### does not work :(
 Source: v%{version}.tar.gz
 Source1: phalcon.ini
-
+Patch1: 0001-Ensure-Phalcon-is-built-so-that-it-supports-older-CP.patch
 BuildRequires: scl-utils-build
 BuildRequires: %{?scl_prefix}scldevel
 BuildRequires: %{?scl_prefix}build
@@ -69,6 +69,7 @@ Phalcon is an open source full stack framework for PHP, written as a C-extension
 %prep
 %setup -n cphalcon-%{version}
 #### ^^^ [GitHub]
+%patch1 -p1 -b .cpusupport
 
 %install
 
@@ -96,6 +97,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Thu May 09 2019 Tim Mullin <tim@cpanel.net> - 3.4.2-4
+- EA-6844: Add patch to build Phalcon to support older CPUs
+
 * Wed Mar 06 2019 Cory McIntire <cory@cpanel.net> - 3.4.2-3
 - EA-8226: Add autotools-latest-autoconf build requirements to ensure building on C6
 
