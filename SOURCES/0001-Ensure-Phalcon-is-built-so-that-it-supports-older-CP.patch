@@ -4,28 +4,39 @@ Date: Thu, 9 May 2019 21:14:37 -0500
 Subject: [PATCH] Ensure Phalcon is built so that it supports older CPUs.
 
 ---
- build/install | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ build/install | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/build/install b/build/install
-index 0e5f896..580adb8 100755
+index e89b6db..566863d 100755
 --- a/build/install
 +++ b/build/install
-@@ -24,7 +24,7 @@
+@@ -23,10 +23,11 @@
+ #  ./install --phpize /usr/bin/phpize5.6 --php-config /usr/bin/php-config5.6 --arch 32bits
  
- # Check best compilation flags for GCC
  export CC="gcc"
--export CFLAGS="-march=native -mtune=native -O2 -fomit-frame-pointer"
 +export CFLAGS="-O2 -fomit-frame-pointer"
- export CPPFLAGS="-DPHALCON_RELEASE"
  
- # Set defaults
-@@ -79,9 +79,7 @@ fi
- echo "int main() {}" > t.c
- gcc ${CFLAGS} t.c -o t 2> t.t
+ # Check best compilation flags for GCC.
+ #
+-# By default we compile to be as compatible as possible with all processors. 
++# By default we compile to be as compatible as possible with all processors.
+ # If you would like instruct the compiler to generate optimized machine code
+ # that matches the processor where it is currently running on you can set your
+ # own compile flags by exporting CFLAGS before the build.
+@@ -36,7 +37,7 @@ export CC="gcc"
+ #
+ # This will generate the best possible code for that chipset but will likely
+ # break the compiled object on older chipsets.
+-if [ -z "$CFLAGS" ] 
++if [ -z "$CFLAGS" ]
+ then
+   export CFLAGS="-mtune=native -O2 -fomit-frame-pointer"
+ fi
+@@ -97,7 +98,7 @@ gcc ${CFLAGS} t.c -o t 2> t.t
  if [ $? != 0 ]; then
--	chmod +x gcccpuopt
--	BFLAGS=`./gcccpuopt`
+ 	chmod +x gcccpuopt
+ 	BFLAGS=`./gcccpuopt`
 -	export CFLAGS="-O2 -fomit-frame-pointer $BFLAGS"
 +	export CFLAGS="-O2 -fomit-frame-pointer"
  	gcc ${CFLAGS} t.c -o t 2> t.t
