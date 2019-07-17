@@ -33,9 +33,9 @@
 Name:    %{?scl_prefix}php-phalcon
 Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
-Version: 3.4.2
+Version: 3.4.4
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 4
+%define release_prefix 1
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -97,6 +97,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Wed Jul 17 2019 Cory McIntire <cory@cpanel.net> - 3.4.4-1
+- EA-8574: Update scl-phalcon from v3.4.2 to v3.4.4
+
 * Thu May 09 2019 Tim Mullin <tim@cpanel.net> - 3.4.2-4
 - EA-6844: Add patch to build Phalcon to support older CPUs
 
