@@ -1,4 +1,4 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From dc11f74d736eb6194a90701a73a27d70461bfb79 Mon Sep 17 00:00:00 2001
 From: Tim Mullin <tim@cpanel.net>
 Date: Thu, 9 May 2019 21:14:37 -0500
 Subject: [PATCH] Ensure Phalcon is built so that it supports older CPUs.
@@ -42,3 +42,6 @@ index e89b6db..566863d 100755
  	gcc ${CFLAGS} t.c -o t 2> t.t
  	if [ $? != 0 ]; then
  		export CFLAGS="-O2"
+-- 
+2.21.0
+
