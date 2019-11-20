@@ -34,15 +34,30 @@ sub _get_required {
         die "Could not find phalcon versions\n";
     }
 
+    # To make sure the signatures are valid we will NOT be downloading a
+    # tarball.  We will instead git clone, git checkout, git verify-commit
+    # after making sure the gpg keys are in place.
+    # so the actual tarball will be pulled from the git repo, not downloaded
+
     my $version = "3\.$phalcon[0]";
     my $name    = "v$version.tar.gz";
-    my $url     = "https://github.com/phalcon/cphalcon/archive/$name";
+    my $url     = "https://github.com/phalcon/cphalcon.git";
 
-    return ( $version, $url, $name );
+    return ( $version, $url, $name, {
+        git_dir => 'cphalcon',
+        tarball_main_dir => 'cphalcon_' . $version,
+        tag => 'v' . $version,
+    });
 }
 
 sub _add_sum {
     my ( $http, $hr ) = @_;
+
+    $hr->{tarball}{sum}{type} = "github_gpg_signed_commit";
+    $hr->{tarball}{sum}{gpg}  = {
+        key_url        => 'https://keybase.io/klay/pgp_keys.asc',
+        key_email      => 'sadhooklay@gmail.com',
+    };
 
     return;
 }
