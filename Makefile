@@ -1,4 +1,5 @@
 OBS_PROJECT := EA4
+scl-php74-php-phalcon-obs : DISABLE_BUILD += repository=CentOS_9
 scl-php73-php-phalcon-obs : DISABLE_BUILD += repository=CentOS_9
 scl-php72-php-phalcon-obs : DISABLE_BUILD += repository=CentOS_9
 scl-php71-php-phalcon-obs : DISABLE_BUILD += repository=CentOS_8 repository=CentOS_9
