@@ -35,7 +35,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.4.5
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 1
+%define release_prefix 3
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -97,6 +97,12 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Wed Dec 29 2021 Dan Muey <dan@cpanel.net> - 3.4.5-3
+- ZC-9616: disable OBS debuginfo flag for C6 and C7
+
+* Tue Dec 28 2021 Dan Muey <dan@cpanel.net> - 3.4.5-2
+- ZC-9589: Update DISABLE_BUILD to match OBS
+
 * Fri Nov 08 2019 Cory McIntire <cory@cpanel.net> - 3.4.5-1
 - EA-8740: Update scl-phalcon from v3.4.4 to v3.4.5
 
