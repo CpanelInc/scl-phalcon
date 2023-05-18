@@ -1,4 +1,5 @@
 %define debug_package %{nil}
+%define _enable_debug_packages %{nil}
 
 %{?scl:%global _scl_prefix /opt/cpanel}
 %{!?scl:%global pkg_name %{name}}
@@ -35,7 +36,7 @@ Vendor:  cPanel, Inc.
 Summary: A full-stack PHP framework delivered as a C-extension
 Version: 3.4.5
 # Doing release_prefix this way for Release allows for OBS-proof versioning, See EA-4572 for more details
-%define release_prefix 3
+%define release_prefix 4
 Release: %{release_prefix}%{?dist}.cpanel
 License: PHP
 Group:   Development/Languages
@@ -97,6 +98,9 @@ install %{SOURCE1} $RPM_BUILD_ROOT/%{_scl_root}/etc/php.d/
 %config(noreplace) %attr(644,root,root) %{_scl_root}/etc/php.d/phalcon.ini
 
 %changelog
+* Wed May 17 2023 Dan Muey <dan@cpanel.net> - 3.4.5-4
+- ZC-10938: Remove DISABLE_DEBUGINFO (and i586 if any) from Makefile, deal w/ debug_package nil
+
 * Wed Dec 29 2021 Dan Muey <dan@cpanel.net> - 3.4.5-3
 - ZC-9616: disable OBS debuginfo flag for C6 and C7
 
