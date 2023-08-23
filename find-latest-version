@@ -24,7 +24,7 @@ unless ( caller() ) {
 sub _get_required {
     my ($http) = @_;
 
-    my $res = $http->get("https://github.com/phalcon/cphalcon/releases");
+    my $res = $http->get("https://github.com/phalcon/cphalcon/releases?page=5");
     if ( !$res->{success} ) {
         die "Could not GET phalcon dist page ($res->{status} $res->{reason})\n";
     }
